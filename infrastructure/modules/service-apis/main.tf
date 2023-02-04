@@ -11,3 +11,16 @@ resource "google_apikeys_key" "nl_key" {
     project = var.gcp_project
 
 }
+
+resource "google_secret_manager_secret" "nl_api_secret" {
+    secret_id = "nl_api_secret"
+
+    replication {
+      automatic = true
+    }
+}
+
+resource "google_secret_manager_secret_version" "nl_api_secret" {
+    secret = google_secret_manager_secret.nl_api_secret.id
+    secret_data = google_apikeys_key.nl_key.key_string
+}
