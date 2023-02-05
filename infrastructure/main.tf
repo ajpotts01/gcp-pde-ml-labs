@@ -8,6 +8,19 @@ module "cloud-storage" {
     ]
 }
 
+# module "cloud-scheduler" {
+#     source = "./modules/cloud-scheduler"
+#     gcp_project = var.gcp_project
+#     gcp_region = var.gcp_region
+
+#     depends_on = [
+#       module.cloud-functions
+#     ]
+
+#     basic_classify_url = module.cloud-functions.basic_classify_function_uri
+#     #service_account_email = module.cloud-functions.basic_classify_service_account
+# }
+
 module "cloud-functions" {
     source = "./modules/cloud-functions"
     gcp_project = var.gcp_project

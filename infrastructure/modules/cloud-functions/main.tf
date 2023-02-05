@@ -8,6 +8,10 @@ resource "google_cloudfunctions2_function" "basic_classify_function" {
     project = var.gcp_project
     location = var.gcp_region
 
+    depends_on = [
+      google_service_account.functions_sa
+    ]
+
     build_config {
         runtime = "python38" # This was developed using a venv with 3.7.9        
         entry_point = "run"
@@ -39,4 +43,8 @@ resource "google_cloudfunctions2_function" "basic_classify_function" {
 
 output "basic_classify_function_uri" {
     value = google_cloudfunctions2_function.basic_classify_function.service_config[0].uri
+}
+
+output "basic_classify_service_account" {
+    value = google_service_account.functions_sa.email
 }

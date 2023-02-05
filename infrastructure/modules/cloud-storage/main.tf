@@ -2,17 +2,6 @@ resource "random_id" "gcs_bucket_prefix" {
     byte_length = 8
 }
 
-resource "google_storage_bucket" "infra_config" {
-    name = "${random_id.gcs_bucket_prefix.hex}-bucket-tfstate"
-    force_destroy = false
-    location = var.gcp_region
-    project = var.gcp_project
-    storage_class = "STANDARD"
-    versioning {
-      enabled = true
-    }
-}
-
 data "archive_file" "basic_classify_function_src" {
     type = "zip"
 
@@ -43,10 +32,6 @@ resource "google_storage_bucket_object" "basic_classify_function_object" {
       google_storage_bucket.basic_classify_function,
       data.archive_file.basic_classify_function_src
     ]
-}
-
-output "state_bucket" {
-    value = google_storage_bucket.infra_config.name
 }
 
 output "function_bucket_basic_classify" {
