@@ -1,3 +1,4 @@
+import os
 import requests
 
 import functions_framework
@@ -15,10 +16,13 @@ def get_request_data() -> dict:
 
 
 def make_nl_request() -> requests.Response:
-    api_url: str = "https://language.googleapis.com/v1/documents:classifyText"
+    api_url_base: str = "https://language.googleapis.com/v1/documents:classifyText"
+    api_key: str = os.getenv("NL_API_KEY")
+
+    api_url_full: str = f"{api_url_base}?key={api_key}"
     request_content = get_request_data()
 
-    response = requests.post(url=api_url, json=request_content)
+    response = requests.post(url=api_url_full, json=request_content)
 
     return response
 
