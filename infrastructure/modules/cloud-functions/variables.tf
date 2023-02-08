@@ -17,3 +17,8 @@ variable "basic_classify_object" {
     type = string
     description = "Object name for basic classify function source"
 }
+
+variable "nl_api_key_secret" {
+    type = string
+    description = "NL API key secret - for setting up as environment variable"
+}

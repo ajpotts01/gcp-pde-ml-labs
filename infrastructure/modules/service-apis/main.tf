@@ -32,3 +32,7 @@ resource "google_secret_manager_secret_version" "nl_api_secret" {
     secret = google_secret_manager_secret.nl_api_secret.id
     secret_data = google_apikeys_key.nl_key.key_string
 }
+
+output "nl_api_secret_id" {
+    value = google_secret_manager_secret.nl_api_secret.secret_id
+}
